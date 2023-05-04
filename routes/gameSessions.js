@@ -27,9 +27,8 @@ router.post("/create", isAuthenticated, async (req, res) => {
 
   const newGameSession = new GameSession({
     sessionName,
-    gameMaster: req.user.id,
+    gameMaster: req.user.user.id,
   });
-
   try {
     const savedGameSession = await newGameSession.save();
     res.json(savedGameSession);
@@ -46,7 +45,7 @@ router.put("/join/:id", isAuthenticated, async (req, res) => {
       return res.status(404).json({ message: "Game session not found" });
     }
 
-    gameSession.players.push(req.user.id);
+    gameSession.players.push(req.user.user.id);
     const updatedGameSession = await gameSession.save();
     res.json(updatedGameSession);
   } catch (err) {
