@@ -1,6 +1,7 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const authRoutes = require("./routes/auth");
+const gameSessionRoutes = require("./routes/gameSessions");
 const bodyParser = require("body-parser");
 require("dotenv").config();
 
@@ -18,6 +19,7 @@ mongoose
 
 // Routes
 app.use("/auth", authRoutes);
+app.use("/game-session", gameSessionRoutes);
 
 // Start the server
 const port = process.env.PORT || 3000;
