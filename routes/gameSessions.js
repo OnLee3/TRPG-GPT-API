@@ -1,25 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const GameSession = require("../models/GameSession");
-const jwt = require("jsonwebtoken");
-
-// Middleware to check if the user is authenticated
-const isAuthenticated = (req, res, next) => {
-  const authHeader = req.headers.authorization;
-  if (!authHeader) {
-    return res.status(401).json({ message: "Unauthorized" });
-  }
-
-  const token = authHeader.split(" ")[1]; // The token is usually in the format: "Bearer {token}"
-
-  jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
-    if (err) {
-      return res.status(401).json({ message: "Unauthorized" });
-    }
-    req.user = decoded;
-    next();
-  });
-};
+const { isAuthenticated } = require("../middlewares/isAuthenticated");
 
 // Route to create a new game session
 router.post("/create", isAuthenticated, async (req, res) => {

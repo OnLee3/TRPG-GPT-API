@@ -2,6 +2,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 const authRoutes = require("./routes/auth");
 const gameSessionRoutes = require("./routes/gameSessions");
+const characterRoutes = require("./routes/characters");
 const bodyParser = require("body-parser");
 require("dotenv").config();
 
@@ -18,8 +19,9 @@ mongoose
   .catch((err) => console.log("Error connecting to MongoDB:", err));
 
 // Routes
-app.use("/auth", authRoutes);
-app.use("/game-session", gameSessionRoutes);
+app.use("/api/auth", authRoutes);
+app.use("/api/game-session", gameSessionRoutes);
+app.use("/api/characters", characterRoutes);
 
 // Start the server
 const port = process.env.PORT || 3000;
