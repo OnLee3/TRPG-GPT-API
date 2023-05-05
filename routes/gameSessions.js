@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const GameSession = require("../models/GameSession");
 const { isAuthenticated } = require("../middlewares/isAuthenticated");
+const { generateStoryEvent } = require("../config/gptApi");
 
 // Route to create a new game session
 router.post("/create", isAuthenticated, async (req, res) => {
@@ -47,5 +48,7 @@ router.get("/", isAuthenticated, async (req, res) => {
     res.status(500).json({ message: "Error fetching game sessions", err });
   }
 });
+
+router.post("/generateEvent", isAuthenticated, generateStoryEvent);
 
 module.exports = router;
