@@ -24,7 +24,7 @@ const characterSchema = new mongoose.Schema({
     wisdom: Number,
     charisma: Number,
   },
-  // Add other character-related fields as needed
+  background: String, // describe the character's background that giving to GPT-3.5 API as a system prompt.
 });
 
 module.exports = mongoose.model("Character", characterSchema);
