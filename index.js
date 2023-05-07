@@ -5,9 +5,16 @@ const gameSessionRoutes = require("./routes/gameSessions");
 const characterRoutes = require("./routes/characters");
 const gptRoutes = require("./routes/gpt");
 const bodyParser = require("body-parser");
+const cors = require("cors");
 require("dotenv").config();
 
 const app = express();
+app.use(
+  cors({
+    origin: "http://localhost:5173",
+    methods: ["GET", "POST", "PUT", "DELETE"],
+  })
+);
 
 // Middleware
 app.use(bodyParser.json());
