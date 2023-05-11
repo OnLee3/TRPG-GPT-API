@@ -41,3 +41,21 @@ exports.getGameSessions = async (req, res) => {
     res.status(500).json({ message: "Error fetching game sessions", err });
   }
 };
+
+exports.getGameSession = async (req, res) => {
+  try {
+    const gameSession = await GameSession.findById(req.params.id);
+
+    if (!gameSession) {
+      return res.status(404).json({ msg: "Game session not found" });
+    }
+
+    res.json(gameSession);
+  } catch (err) {
+    console.error(err.message);
+    if (err.kind == "ObjectId") {
+      return res.status(404).json({ msg: "Game session not found" });
+    }
+    res.status(500).send("Server error");
+  }
+};
